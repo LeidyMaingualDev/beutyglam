@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: makeup-auth
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/makeup_store
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+server:
+  port: 8080
+
+security:
+  jwt:
+    secret-key: wRJ9Jh05ec02ffJEILZ6GR6FZhu8t7j9UApaDJ7pvUw=
+    token-expiration: 600000
