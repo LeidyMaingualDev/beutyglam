@@ -23,8 +23,22 @@ public class AuthService {
 
     public String register(RegisterRequestDTO request) {
 
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        String email = request.getEmail();
+
+        if (email == null || email.isBlank()) {
+            throw new RuntimeException("El correo es obligatorio");
+        }
+
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            throw new RuntimeException("Formato de correo inválido");
+        }
+
+        if (userRepository.findByEmail(email).isPresent()) {
             throw new RuntimeException("El correo ya está registrado");
+        }
+
+        if (request.getPassword() == null || request.getPassword().length() < 6) {
+            throw new RuntimeException("La contraseña debe tener al menos 6 caracteres");
         }
 
         UserRole role = roleRepository.findByRoleName("CLIENT")
@@ -32,7 +46,7 @@ public class AuthService {
 
         User user = new User();
         user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
+        user.setEmail(email);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(role);
 
