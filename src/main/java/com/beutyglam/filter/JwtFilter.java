@@ -1,4 +1,4 @@
-package com.beutyglam;
+package com.beutyglam.filter;
 
 import com.beutyglam.service.JwtService;
 import io.jsonwebtoken.Claims;
@@ -48,6 +48,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/auth/");
+        String path = request.getRequestURI();
+
+        return path.equals("/auth/login") ||
+                path.equals("/auth/register");
     }
 }
