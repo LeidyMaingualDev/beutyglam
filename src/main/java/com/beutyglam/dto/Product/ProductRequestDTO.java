@@ -1,4 +1,4 @@
-package com.beutyglam.dto.auth;
+package com.beutyglam.dto.Product;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

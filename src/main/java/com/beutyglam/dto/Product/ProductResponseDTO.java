@@ -1,4 +1,4 @@
-package com.beutyglam.dto.auth;
+package com.beutyglam.dto.Product;
 
 public class ProductResponseDTO {
     private Integer id;
