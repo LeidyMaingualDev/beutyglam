@@ -72,4 +72,8 @@ public class AuthService {
 
         return response;
     }
+
+    public String refreshToken(String token) {
+        return jwtService.refreshToken(token);
+    }
 }
