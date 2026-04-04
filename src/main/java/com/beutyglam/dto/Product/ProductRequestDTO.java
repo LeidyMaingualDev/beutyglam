@@ -18,7 +18,7 @@ public class ProductRequestDTO {
     private Double price;
 
     @NotBlank(message = "El descripción es obligatorio")
-    @Size(min = 3, max = 100, message = "El nombre debe tener entre 3 y 100 caracteres")
+    @Size(min = 3, max = 100, message = "La descripción debe tener entre 3 y 100 caracteres")
     private String description;
 
     @NotNull(message = "El stock es obligatorio")

@@ -1,5 +1,8 @@
 package com.beutyglam.dto.Product;
 
+import lombok.Data;
+
+@Data
 public class ProductResponseDTO {
     private Integer id;
     private String product_name;
