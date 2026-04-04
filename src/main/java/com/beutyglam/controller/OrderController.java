@@ -15,33 +15,33 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
     private final OrderService orderService;
 
-    
     @PostMapping
     public ResponseEntity<?> makeOrder(
-            @RequestBody OrderRequestDTO request,
-            HttpServletRequest httpRequest) {
-        try {
-            String userEmail = (String) httpRequest.getAttribute("userId");
-            OrderResponseDTO response = orderService.makeOrder(request, userEmail);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        @RequestBody OrderRequestDTO request,
+        HttpServletRequest httpRequest) {
+    try {
+        Integer userId = (Integer) httpRequest.getAttribute("userId"); 
+        OrderResponseDTO response = orderService.makeOrder(request, userId);
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
+}
 
     @GetMapping("/history")
     public ResponseEntity<?> getOrderHistory(HttpServletRequest httpRequest) {
-        try {
-            String userEmail = (String) httpRequest.getAttribute("userId");
-            return ResponseEntity.ok(orderService.getOrderHistory(userEmail));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+    try {
+        Integer userId = (Integer) httpRequest.getAttribute("userId"); 
+        return ResponseEntity.ok(orderService.getOrderHistory(userId));
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
+}
+
 }
