@@ -97,22 +97,12 @@ public class ProductService {
         }
     }
 
-    public Optional<ProductResponseDTO> deleteProductById(Integer id) {
+    public Optional<String> deleteProductById(Integer id) {
         Optional<Product> productOptional = productRepository .findById(id);
 
         if (productOptional.isPresent()) {
-            Product product = productOptional.get();
-
-            ProductResponseDTO productResponseDTO = new ProductResponseDTO();
-            productResponseDTO.setId(product.getId());
-            productResponseDTO.setProduct_name(product.getProduct_name());
-            productResponseDTO.setPrice(product.getPrice());
-            productResponseDTO.setDescription(product.getDescription());
-            productResponseDTO.setStock(product.getStock());
-
-            productRepository.delete(product);
-
-            return Optional.of(productResponseDTO);
+            productRepository.delete(productOptional.get());
+            return Optional.of("Producto eliminado correctamente");
         } else {
             return Optional.empty();
         }

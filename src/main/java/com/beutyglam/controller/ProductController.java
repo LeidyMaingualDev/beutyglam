@@ -32,7 +32,7 @@ public class ProductController {
         String role = (String) request.getAttribute("role");
 
         if (!"ADMIN".equals(role)) {
-            return ResponseEntity.status(403).body("No autorizado");
+            return ResponseEntity.status(401).body("No autorizado");
         }
 
         ProductResponseDTO productResponseDTO = productService.createProduct(productRequestDTO);
@@ -61,7 +61,7 @@ public class ProductController {
         String role = (String) request.getAttribute("role");
 
         if (!"ADMIN".equals(role)) {
-            return ResponseEntity.status(403).body("No autorizado");
+            return ResponseEntity.status(401).body("No autorizado");
         }
 
         ProductResponseDTO productResponseDTO = productService.updateProductById(id, productRequestDTO).orElse(null);
@@ -78,15 +78,15 @@ public class ProductController {
         String role = (String) request.getAttribute("role");
 
         if (!"ADMIN".equals(role)) {
-            return ResponseEntity.status(403).body("No autorizado");
+            return ResponseEntity.status(401).body("No autorizado");
         }
         
-        ProductResponseDTO productResponseDTO = productService.deleteProductById(id).orElse(null);
+        String message = productService.deleteProductById(id).orElse(null);
 
-        if (productResponseDTO != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
+        if (message != null) {
+            return ResponseEntity.ok(message);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
         }
     }
 
