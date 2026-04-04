@@ -26,11 +26,9 @@ public class OrderService {
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
 
-    public OrderResponseDTO makeOrder(OrderRequestDTO request, String userEmail) {
-
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
+    public OrderResponseDTO makeOrder(OrderRequestDTO request, Integer userId) {
+    User user = userRepository.findById(Long.valueOf(userId))
+            .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
     Order order = new Order();
     order.setUser(user);
@@ -76,12 +74,8 @@ public class OrderService {
     return response;
 }
 
-    public List<Order> getOrderHistory(String userEmail){
-
-    User user = userRepository.findByEmail(userEmail)
-    .orElseThrow(()-> new RuntimeException("Usuario no encontrado"));
-
-     return orderRepository.findByUserId(user.getId());
+    public List<Order> getOrderHistory(Integer userId) {
+    return orderRepository.findByUserId(Long.valueOf(userId));
 }
 
 }

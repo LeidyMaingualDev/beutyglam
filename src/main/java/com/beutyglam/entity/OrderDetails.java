@@ -1,10 +1,12 @@
 package com.beutyglam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "orderDetails")
+@Table(name = "`orderDetails`")
 @Data
 public class OrderDetails {
     
@@ -14,7 +16,8 @@ public class OrderDetails {
     private Long orderDetailId;
 
     @ManyToOne
-    @JoinColumn(name = "fk_order_id")
+    @JoinColumn(name = "`fk_orderProduct_id`")
+    @JsonIgnore
     private Order order;
 
     @ManyToOne
