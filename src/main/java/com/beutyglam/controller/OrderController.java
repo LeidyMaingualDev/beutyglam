@@ -26,6 +26,12 @@ public class OrderController {
         @RequestBody OrderRequestDTO request,
         HttpServletRequest httpRequest) {
     try {
+
+        String role = (String) httpRequest.getAttribute("role");
+        if (!"CLIENT".equals(role)) {
+            return ResponseEntity.status(401).body("No autorizado");
+        } 
+
         Integer userId = (Integer) httpRequest.getAttribute("userId"); 
         OrderResponseDTO response = orderService.makeOrder(request, userId);
         return ResponseEntity.ok(response);
@@ -37,6 +43,12 @@ public class OrderController {
     @GetMapping("/history")
     public ResponseEntity<?> getOrderHistory(HttpServletRequest httpRequest) {
     try {
+
+        String role = (String) httpRequest.getAttribute("role");
+        if (!"CLIENT".equals(role)) {
+            return ResponseEntity.status(401).body("No autorizado");
+        } 
+
         Integer userId = (Integer) httpRequest.getAttribute("userId"); 
         return ResponseEntity.ok(orderService.getOrderHistory(userId));
     } catch (Exception e) {
