@@ -21,7 +21,7 @@ public class Order {
     private User user;
 
     @Column(name = "order_date")
-    private LocalDate ordeDate;
+    private LocalDate orderDate;
 
     @Column(name = "total")
     private Double total;
