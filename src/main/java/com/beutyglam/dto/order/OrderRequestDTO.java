@@ -11,8 +11,8 @@ public class OrderRequestDTO {
     @Data
     public static class OrderItemDTO{
         
-    private Long productId;
+    private Integer productId;
     private Integer quantity;
-    
+
     }
 }
