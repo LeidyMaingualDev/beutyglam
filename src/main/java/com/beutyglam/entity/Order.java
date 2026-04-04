@@ -26,7 +26,7 @@ public class Order {
     @Column(name = "total")
     private Double total;
 
-    @OneToMany(mappedBy = "fk_orderProduct_id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetails> details;
 
 }
