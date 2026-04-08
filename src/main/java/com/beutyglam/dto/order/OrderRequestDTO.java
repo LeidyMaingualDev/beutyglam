@@ -9,8 +9,7 @@ public class OrderRequestDTO {
     private List<OrderItemDTO> items;
 
     @Data
-    public static class OrderItemDTO{
-        
+    public static class OrderItemDTO{    
     private Integer productId;
     private Integer quantity;
 
