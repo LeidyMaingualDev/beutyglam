@@ -46,13 +46,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> findProductById(@PathVariable Integer id) {
+    public ResponseEntity<?> findProductById(@PathVariable Integer id) {
         ProductResponseDTO productResponseDTO = productService.findProductById(id).orElse(null);
 
         if (productResponseDTO != null) {
             return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
         }
     }
 
@@ -69,7 +69,7 @@ public class ProductController {
         if (productResponseDTO != null) {
             return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
         }
     }
 
