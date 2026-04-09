@@ -54,4 +54,24 @@ public class JwtService {
                 .parseSignedClaims(token)
                 .getPayload();
     }
+
+    public String refreshToken(String token) {
+
+        Claims claims = getClaims(token);
+
+        Long userId = claims.get("userId", Long.class);
+        String email = claims.getSubject();
+        String role = claims.get("role", String.class);
+
+        return Jwts.builder()
+                .claims(Map.of(
+                        "userId", userId,
+                        "role", role
+                ))
+                .subject(email)
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getKey())
+                .compact();
+    }
 }

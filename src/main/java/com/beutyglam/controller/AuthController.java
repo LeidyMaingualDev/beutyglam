@@ -39,4 +39,23 @@ public class AuthController {
                 " | Rol: " + request.getAttribute("role");
     }
 
+    @GetMapping("/refresh")
+    public ResponseEntity<?> refresh(HttpServletRequest request) {
+
+        String header = request.getHeader("Authorization");
+
+        if (header == null || !header.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body("Token requerido");
+        }
+
+        String token = header.substring(7);
+
+        try {
+            String newToken = authService.refreshToken(token);
+            return ResponseEntity.ok(newToken);
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Token inválido o expirado");
+        }
+    }
+
 }
